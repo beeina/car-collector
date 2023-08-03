@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 #import model here
 from .models import Car 
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 
 # cars = [
@@ -50,11 +50,11 @@ class CarCreate(CreateView):
    fields = ['brand', 'color', 'model', 'features', 'year', 'countryItMade']
   
 
-# class CarUpdate(UpdateView):
-#   model = Car
-#   fields = ['brand', 'color', 'model', 'features', 'year', 'countryItMade']
+class CarUpdate(UpdateView):
+  model = Car
+  fields = ['brand', 'color', 'model', 'features', 'year', 'countryItMade']
 
-# class CarDelete(DeleteView):
-#   model = Car
-#   success_url = '/cars'
+class CarDelete(DeleteView):
+  model = Car
+  success_url = '/cars'
 
