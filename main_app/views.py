@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 #import model here
 from .models import Car 
+from django.views.generic.edit import CreateView
 
 
 # cars = [
@@ -43,3 +44,17 @@ def cars_index(request):
 def cars_detail(request, car_id):
   car = Car.objects.get(id=car_id)
   return render(request, 'cars/detail.html', {"car": car})
+
+class CarCreate(CreateView):
+   model = Car
+   fields = ['brand', 'color', 'model', 'features', 'year', 'countryItMade']
+  
+
+# class CarUpdate(UpdateView):
+#   model = Car
+#   fields = ['brand', 'color', 'model', 'features', 'year', 'countryItMade']
+
+# class CarDelete(DeleteView):
+#   model = Car
+#   success_url = '/cars'
+
