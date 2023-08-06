@@ -20,4 +20,35 @@
     <a href="{% url 'cars_delete' car.id %}">Delete</a>
   </div>
 </div>
+<div class="col s6">
+  {% comment %} <form action="{% url 'add_insurance' car.id %}" method="POST">
+    {% csrf_token %}
+    <!-- Render the inputs -->
+    {{ insurance_form.as_p }}
+    <input type="submit" class="btn" value="Add Insurance">
+  </form>
+  <br>
+  {% if car.add_insurance %}
+    <div class="card-panel teal-text center-align">{{car.brand}} has been add insurance</div>
+  {% else %}
+    <div class="card-panel red-text center-align">{{car.brand}} might be not add insurance</div>
+  {% endif %} {% endcomment %}
+  <table class="striped">
+    <thead>
+      <tr><th>policyNumber</th><th>provider</th><th>coverageAmount</th><th>startDate</th><th>endDate</tr>
+    </thead>
+    <tbody>
+      {% for insurance in car.insurance_set.all %}
+        <tr>
+          <td>{{insurance.get_policyNumber_display}}</td>
+          <td>{{insurance.get_provide_display}}</td>          
+          <td>{{insurance.get_coverageAmount_display}}</td>
+          <td>{{insurance.get_startDate_display}}</td>
+          <td>{{insurance.get_endDate_display}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
 {% endblock %}

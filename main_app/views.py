@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 #import model here
 from .models import Car 
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
+# from .forms import InsuranceForm
 
 # cars = [
 #    {'brand': 'Honda',
@@ -58,3 +58,10 @@ class CarDelete(DeleteView):
   model = Car
   success_url = '/cars'
 
+# def add_insurance(request, car_id):
+#   form = InsuranceForm(request,POST)
+#   if form.is_valid():
+#     new_insurance = form.save(commit=False)
+#     new_insurance.car_id = car_id
+#     new_insurance.save()
+#   return redirect('detail', car_id=car_id)
