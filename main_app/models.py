@@ -3,6 +3,16 @@ from django.urls import reverse
 
 # Create your models here.
 
+class User(models.Model):
+     name = models.CharField(max_length=50)
+
+def __str__(self):
+    return self.name
+
+def get_absolute_url(self):
+    return reverse("users_detail", kwargs={"pk": self.id})
+    
+
 class Car(models.Model):
     brand = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
@@ -10,6 +20,8 @@ class Car(models.Model):
     year = models.IntegerField()
     model = models.CharField(max_length=100)
     countryItMade = models.CharField(max_length=100)
+    # Create M:M relationship with User
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return f'{self.brand} {self.id} {self.model} {self.features} {self.year}'
