@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 #import model here
 from .models import Car 
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-# from .forms import InsuranceForm
+from .forms import InsuranceForm
 
 # cars = [
 #    {'brand': 'Honda',
@@ -43,7 +43,8 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
   car = Car.objects.get(id=car_id)
-  return render(request, 'cars/detail.html', {"car": car})
+  insurance_form = InsuranceForm()
+  return render(request, 'cars/detail.html', {"car": car, 'insurance_form': insurance_form})
 
 class CarCreate(CreateView):
    model = Car
@@ -58,10 +59,14 @@ class CarDelete(DeleteView):
   model = Car
   success_url = '/cars'
 
-# def add_insurance(request, car_id):
-#   form = InsuranceForm(request,POST)
-#   if form.is_valid():
-#     new_insurance = form.save(commit=False)
-#     new_insurance.car_id = car_id
-#     new_insurance.save()
-#   return redirect('detail', car_id=car_id)
+def add_insurance(request, car_id):
+  
+  form = InsuranceForm(request.POST)
+  # print(form)
+  if form.is_valid():
+    new_insurance = form.save(commit=False)
+    # print('new insurance is ')
+    # print(new_insurance)
+    new_insurance.car_id = car_id
+    new_insurance.save()
+  return redirect('detail', car_id=car_id)
